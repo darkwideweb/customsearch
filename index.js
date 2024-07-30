@@ -8,7 +8,7 @@ const CSE_ID = process.env.CSE_ID;
 // Функция для поиска в Google
 async function searchGoogle(query) {
     const url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${API_KEY}&cx=${CSE_ID}`;
-    console.log(`Запрос к URL: ${url}`); // Добавлена отладочная информация
+    console.log(`Запрос к URL: ${url}`); 
     try {
         const response = await axios.get(url);
         console.log(`Ответ от Google: ${JSON.stringify(response.data, null, 2)}`); // Добавлена отладочная информация
@@ -22,7 +22,7 @@ async function searchGoogle(query) {
 // Функция для извлечения ответов из результатов поиска
 function extractAnswer(searchResults) {
     if (searchResults && searchResults.items && searchResults.items.length > 0) {
-        // Скомпонуйте все сниппеты в один контекст для ответа
+        
         const context = searchResults.items.map(item => item.snippet).join(' ');
         return context;
     } else {
@@ -32,9 +32,9 @@ function extractAnswer(searchResults) {
 
 // Основная функция для обработки вопроса
 async function handleQuestion(question) {
-    console.log(`Обработка вопроса: ${question}`); // Добавлена отладочная информация
+    console.log(`Обработка вопроса: ${question}`); 
     const searchResults = await searchGoogle(question);
-    console.log(`Результаты поиска: ${JSON.stringify(searchResults, null, 2)}`); // Добавлена отладочная информация
+    console.log(`Результаты поиска: ${JSON.stringify(searchResults, null, 2)}`); 
     const answer = extractAnswer(searchResults);
     return answer;
 }
@@ -53,5 +53,4 @@ function askQuestions() {
     });
 }
 
-// Запуск интерактивного ввода
 askQuestions();
